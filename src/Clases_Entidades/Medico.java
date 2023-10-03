@@ -10,10 +10,12 @@ package Clases_Entidades;
  */
 public class Medico extends Persona {
     private String especialidad;
+    private int matricula;
 
-    public Medico(Persona obj, String cont) {
+    public Medico(Persona obj, String cont, int matricula) {
         super(obj);
         this.especialidad=cont;
+        this.matricula = matricula;
     }
 
     public Medico() {
