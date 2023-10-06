@@ -42,15 +42,25 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar5 = new javax.swing.JMenuBar();
         jMenu9 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
+        jMenu12 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuBar6 = new javax.swing.JMenuBar();
+        jMenu13 = new javax.swing.JMenu();
+        jMenu14 = new javax.swing.JMenu();
+        jMenuBar7 = new javax.swing.JMenuBar();
+        jMenu15 = new javax.swing.JMenu();
+        jMenu16 = new javax.swing.JMenu();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mitRegistrar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         mitRealizarTriage = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu17 = new javax.swing.JMenu();
+        mitRegistrarMedico = new javax.swing.JMenuItem();
+        mitEspecialidades = new javax.swing.JMenuItem();
 
         jInternalFrame1.setVisible(true);
 
@@ -91,6 +101,22 @@ public class Principal extends javax.swing.JFrame {
         jMenu10.setText("Edit");
         jMenuBar5.add(jMenu10);
 
+        jMenu12.setText("jMenu12");
+
+        jMenuItem4.setText("jMenuItem4");
+
+        jMenu13.setText("File");
+        jMenuBar6.add(jMenu13);
+
+        jMenu14.setText("Edit");
+        jMenuBar6.add(jMenu14);
+
+        jMenu15.setText("File");
+        jMenuBar7.add(jMenu15);
+
+        jMenu16.setText("Edit");
+        jMenuBar7.add(jMenu16);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
@@ -117,14 +143,6 @@ public class Principal extends javax.swing.JFrame {
         });
         mitRegistrar.add(jMenuItem1);
 
-        jMenuItem2.setText("Listado");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        mitRegistrar.add(jMenuItem2);
-
         jMenuBar1.add(mitRegistrar);
 
         jMenu11.setText("Triage");
@@ -142,6 +160,26 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu11);
 
+        jMenu17.setText("Medico");
+
+        mitRegistrarMedico.setText("Registrar");
+        mitRegistrarMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitRegistrarMedicoActionPerformed(evt);
+            }
+        });
+        jMenu17.add(mitRegistrarMedico);
+
+        mitEspecialidades.setText("Especialidades");
+        mitEspecialidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitEspecialidadesActionPerformed(evt);
+            }
+        });
+        jMenu17.add(mitEspecialidades);
+
+        jMenuBar1.add(jMenu17);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,7 +188,7 @@ public class Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(escritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,12 +211,20 @@ public class Principal extends javax.swing.JFrame {
         triage.show();
     }//GEN-LAST:event_mitRealizarTriageActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void mitRegistrarMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitRegistrarMedicoActionPerformed
         // TODO add your handling code here:
-        Listado a = new Listado();
+        RegistrarMedicos a = new RegistrarMedicos();
         escritorio.add(a);
         a.show();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        
+    }//GEN-LAST:event_mitRegistrarMedicoActionPerformed
+
+    private void mitEspecialidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitEspecialidadesActionPerformed
+        // TODO add your handling code here:
+        EspecialidadesMedico a = new EspecialidadesMedico();
+        escritorio.add(a);
+        a.show();
+    }//GEN-LAST:event_mitEspecialidadesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,6 +267,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
+    private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
+    private javax.swing.JMenu jMenu16;
+    private javax.swing.JMenu jMenu17;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -234,10 +286,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar3;
     private javax.swing.JMenuBar jMenuBar4;
     private javax.swing.JMenuBar jMenuBar5;
+    private javax.swing.JMenuBar jMenuBar6;
+    private javax.swing.JMenuBar jMenuBar7;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem mitEspecialidades;
     private javax.swing.JMenuItem mitRealizarTriage;
     private javax.swing.JMenu mitRegistrar;
+    private javax.swing.JMenuItem mitRegistrarMedico;
     // End of variables declaration//GEN-END:variables
 }
