@@ -4,6 +4,7 @@
  */
 package visual;
 
+import Clases_Entidades.Paciente;
 import Clases_Entidades.Persona;
 import bd.Conexion;
 import dao.PacienteDAO;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Thiago
  */
 public class RegistrarPacientes extends javax.swing.JInternalFrame {
-ArrayList<Persona> personas = null;
+ArrayList<Paciente> pacientes = null;
     /**
      * Creates new form RegistrarPacientes
      */
@@ -61,9 +62,9 @@ ArrayList<Persona> personas = null;
         btnLimpiar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPacientes = new javax.swing.JTable();
-        btnListar = new javax.swing.JButton();
+        btnBuscarPorDni = new javax.swing.JButton();
         txtBuscarDni = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -193,22 +194,22 @@ ArrayList<Persona> personas = null;
 
             },
             new String [] {
-                "Nombre", "Apellido", "Fecha Nacimiento", "Domicilio", "DNI", "Tel Fijo", "Celular", "Estado Civil", "Contacto", "Correo"
+                "Nombre", "Apellido", "Fecha Nacimiento", "Domicilio", "DNI", "Tel Fijo", "Celular", "Estado Civil", "Correo", "Contacto"
             }
         ));
         jScrollPane2.setViewportView(tblPacientes);
 
-        btnListar.setText("Buscar");
-        btnListar.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarPorDni.setText("Buscar");
+        btnBuscarPorDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnListarActionPerformed(evt);
+                btnBuscarPorDniActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Eliminar Seleccionado");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminar.setText("Eliminar Seleccionado");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnEliminarActionPerformed(evt);
             }
         });
 
@@ -253,9 +254,9 @@ ArrayList<Persona> personas = null;
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jButton2)
+                        .addComponent(btnEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
-                        .addComponent(btnListar)
+                        .addComponent(btnBuscarPorDni)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(90, 90, 90))))
@@ -270,10 +271,10 @@ ArrayList<Persona> personas = null;
                                 .addGap(17, 17, 17)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnListar)))
+                                    .addComponent(btnBuscarPorDni)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jButton2)))
+                                .addComponent(btnEliminar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -394,7 +395,7 @@ ArrayList<Persona> personas = null;
         // TODO add your handling code here:
        
        try{
-          Persona p = new Persona();
+          Paciente p = new Paciente();
           p.setNombre(txtNombre.getText());
           p.setApellido(txtApellido.getText());
           p.setCorreoElect(txtCorreoElectronico.getText());
@@ -404,6 +405,7 @@ ArrayList<Persona> personas = null;
           p.setFechaNacimiento(txtFechaNacimiento.getText());
           p.setTelCelular(txtCelular.getText());
           p.setTelFijo(txtTelefonoFijo.getText());
+          p.setContacto(txtContacto.getText());
        
           PacienteDAO pdao = new PacienteDAO(); 
           
@@ -429,11 +431,11 @@ ArrayList<Persona> personas = null;
             
             
             if(txtBuscarDni.getText().isEmpty()){
-                personas = pDAO.listarTrabajadores();
+                pacientes = pDAO.listarTrabajadores();
             } else{
-                personas = pDAO.buscarPorDNI(txtBuscarDni.getText());
+                pacientes= pDAO.buscarPorDNI(txtBuscarDni.getText());
                 
-                if(personas.size() == 0){
+                if(pacientes.size() == 0){
                     JOptionPane.showMessageDialog(this,"No se ah encontrado nada con ese DNI");
                 }
             }
@@ -450,18 +452,20 @@ ArrayList<Persona> personas = null;
             modelo.addColumn("Celular");
             modelo.addColumn("Estado Civil");
             modelo.addColumn("Correo");
+            modelo.addColumn("Contacto");
             
-            for (Persona persona : personas) {
-                String[] fila = new String[9]; 
-                fila[0] = persona.getNombre();
-                fila[1] = persona.getApellido();
-                fila[2]= persona.getFechaNacimiento();
-                fila[3]= persona.getDomicilio();
-                fila[4]= persona.getDni();
-                fila[5]=persona.getTelFijo();
-                fila[6]=persona.getTelCelular();
-                fila[7]=persona.getEstadoCivil();
-                fila[8]=persona.getCorreoElect();
+            for (Paciente paciente : pacientes) {
+                String[] fila = new String[10]; 
+                fila[0] = paciente.getNombre();
+                fila[1] = paciente.getApellido();
+                fila[2]= paciente.getFechaNacimiento();
+                fila[3]= paciente.getDomicilio();
+                fila[4]= paciente.getDni();
+                fila[5]=paciente.getTelFijo();
+                fila[6]=paciente.getTelCelular();
+                fila[7]=paciente.getEstadoCivil();
+                fila[8]=paciente.getCorreoElect();
+                fila[9]=paciente.getContacto();
                 modelo.addRow(fila);
             }
             
@@ -480,27 +484,20 @@ ArrayList<Persona> personas = null;
     
     
     
-    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+    private void btnBuscarPorDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarPorDniActionPerformed
         // TODO add your handling code here:
-        this.Listar();
-        
-        
-        
-        
-        
-        
-        
-    }//GEN-LAST:event_btnListarActionPerformed
+          this.Listar();
+    }//GEN-LAST:event_btnBuscarPorDniActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         int indice = tblPacientes.getSelectedRow();
-        Persona persona = this.personas.get(indice);
+        Paciente paciente = this.pacientes.get(indice);
         
         PacienteDAO pDAO = new PacienteDAO();
         
         try {
-            if(pDAO.eliminarPaciente(persona.getDni())){
+            if(pDAO.eliminarPaciente(paciente.getDni())){
                 JOptionPane.showMessageDialog(this,"Eliminado correctamente" );
             } else {
                 JOptionPane.showMessageDialog(this,"No se pudo eliminar" );
@@ -510,15 +507,15 @@ ArrayList<Persona> personas = null;
         }
         
         this.Listar();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscarPorDni;
     private javax.swing.JButton btnConfirmar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnListar;
     private javax.swing.JComboBox<String> cboEstadoCivil;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
