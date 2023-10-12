@@ -4,12 +4,27 @@
  */
 package Clases_Entidades;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Thiago
  */
 public class Medico extends Persona {
     private String matricula;
+    private ArrayList<String> especialidades;
+
+    public ArrayList<String> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(ArrayList<String> especialidades) {
+        this.especialidades = especialidades;
+    }
+
+    public Medico(ArrayList<String> especialidades) {
+        this.especialidades = especialidades;
+    }
 
     public Medico(String matricula) {
         this.matricula = matricula;

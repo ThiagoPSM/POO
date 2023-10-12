@@ -4,17 +4,29 @@
  */
 package visual;
 
+import Clases_Entidades.Medico;
+import dao.MedicoDAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Thiago
  */
 public class EspecialidadesMedico extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form EspecialidadesMedico
-     */
+Vector<String> lista2 = new Vector<>();
+ArrayList<Medico> medicos = null;
+
+    
     public EspecialidadesMedico() {
         initComponents();
+        
     }
 
     /**
@@ -28,12 +40,12 @@ public class EspecialidadesMedico extends javax.swing.JInternalFrame {
 
         jDialog1 = new javax.swing.JDialog();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jlEspecialidadesMedico = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jlTodasLasEspecialidades = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        txtBuscarDni = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
@@ -53,25 +65,35 @@ public class EspecialidadesMedico extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(jlEspecialidadesMedico);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        jlTodasLasEspecialidades.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Alergología", "Anestesiología", "Angiología", "Cardiología", "Endocrinología", "Estomatología", "Farmacología Clínica", "Gastroenterología", "Genética", "Geriatría", "Hematología", "Hepatología", "Infectología", "Medicina aeroespacial", "Medicina del deporte", "Medicina familiar y comunitaria", "Medicina física y rehabilitación", "Medicina forense", "Medicina intensiva", "Medicina interna", "Medicina preventiva y salud pública", "Medicina del trabajo", "Nefrología", "Neumología", "Neurología", "Nutriología", "Oncología médica", "Oncología radioterápica", "Pediatría", "Psiquiatría", "Reumatología", "Toxicología", "Cirugía cardíaca", "Cirugía general", "Cirugía oral y maxilofacial", "Cirugía ortopédica", "Cirugía pediátrica", "Cirugía plástica", "Cirugía torácica", "Cirugía vascular", "Neurocirugía", "Dermatología", "Ginecología y obstetricia o tocología", "Medicina de emergencia", "Oftalmología", "Otorrinolaringología", "Traumatología", "Urología", "Análisis clínico", "Anatomía patológica", "Bioquímica clínica", "Farmacología", "Genética médica", "Inmunología", "Medicina nuclear", "Microbiología y parasitología", "Neurofisiología clínica", "Radiología" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane3.setViewportView(jlTodasLasEspecialidades);
 
         jButton1.setText("--->");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("<---");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Buscar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
@@ -98,7 +120,7 @@ public class EspecialidadesMedico extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,7 +128,7 @@ public class EspecialidadesMedico extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscarDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3))
                 .addGap(64, 64, 64)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -127,18 +149,57 @@ public class EspecialidadesMedico extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+       jlEspecialidadesMedico.removeAll();
+       lista2.add(jlTodasLasEspecialidades.getSelectedValue());
+       jlEspecialidadesMedico.setListData(lista2);
+       
+       
+       
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jlEspecialidadesMedico.removeAll();
+        lista2.remove(jlEspecialidadesMedico.getSelectedValue());
+        jlEspecialidadesMedico.setListData(lista2);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        MedicoDAO mDAO = new MedicoDAO();
+    try {
+        medicos= mDAO.buscarPorDNI(txtBuscarDni.getText());
+        
+        if(medicos.size() == 0){
+                    JOptionPane.showMessageDialog(this,"No se ah encontrado nada con ese DNI");
+                }else
+        {
+            JOptionPane.showMessageDialog(this,"se ah encontrado");
+        }
+        
+        
+        
+    } catch (SQLException ex) {
+        Logger.getLogger(EspecialidadesMedico.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList<String> jlEspecialidadesMedico;
+    private javax.swing.JList<String> jlTodasLasEspecialidades;
+    private javax.swing.JTextField txtBuscarDni;
     // End of variables declaration//GEN-END:variables
 }
